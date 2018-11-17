@@ -1,0 +1,6 @@
+{
+  "name": "AssProCards",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AssProCards.js"
+}
