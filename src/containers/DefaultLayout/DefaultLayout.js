@@ -29,14 +29,17 @@ class DefaultLayout extends Component {
   this.state={
         member:1,
   }
-  
+
 }
   render() {
+    let option = this.props.member;
+    let details = this.props.details;
+    let url = this.props.url;
     console.log("In default layout",this.props);
     return (
       <div className="app">
         <AppHeader fixed>
-          <DefaultHeader />
+          <DefaultHeader details={details} option={option} url={url}/>
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg">
@@ -57,7 +60,7 @@ class DefaultLayout extends Component {
               <Switch>
                 {routes.map((route, idx) => {
                     return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
-                        <route.component {...props} />
+                        <route.component details={details} option={option} url={url}/>
                       )} />)
                       : (null);
                   },

@@ -50,6 +50,7 @@ state = {
           member:"1",
         email_id:'',
         password:'',
+        profile:[],
         
       };
 handleChange2 = z => event => {
@@ -57,7 +58,8 @@ handleChange2 = z => event => {
       console.log("Member---",this.state.member);
   };
 cardData = (res) =>{
-    console.log(res.data["ans"],"____inside *** function_____");
+    console.log(res.data,"____inside *** function_____");
+    this.setState({profile:res.data});
     if(res.data["ans"] === "no"){
       alert("Invalid credentials");
     }
@@ -86,19 +88,20 @@ handlePress = () => {
          console.log(body);
 
           axios({method:'post',
+          //url:'http://192.168.43.137:8000/api/post_admin_faculty_login/',
           url:'http://192.168.43.137:8000/api/post_admin_faculty_login/',
           data:[body]  }).then(res =>{ self.cardData(res);
             });
-    console.log("_____________________*******_____________________");
+    console.log("_____________________*******_____________response________");
     
     //this.setState({isLogged:true});
   }
   render() {
-    var url='192.168.43.137:8000';
+    var url = "http://192.168.43.137:8000";
     return (
      <div>
      {this.state.isLogged
-       ?(<App2 option={this.state.member}/>)
+       ?(<App2 option={this.state.member} details = {this.state.profile} url={url}/>)
                      :(<center>
      <Row><Col></Col>
      <Col> <br></br><br></br><FormGroup row>

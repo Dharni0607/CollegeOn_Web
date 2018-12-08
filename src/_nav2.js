@@ -5,7 +5,7 @@ export default {
     
         {
           name: 'Home',
-          url: '/base/cards',
+          url: '/base/EventsCards',
           icon: 'icon-puzzle',
         },
         {
@@ -73,7 +73,11 @@ export default {
           url: '/base/ClassReSchedules',
           icon: 'icon-puzzle',
         },
-        
+        {
+          name: 'Time-table',
+          url: '/base/tables',
+          icon: 'icon-puzzle',
+        }, 
         // {
         //   name: 'Popovers',
         //   url: '/base/popovers',

@@ -27,7 +27,7 @@ class ClassReSchCards extends Component {
 
   cardData = (res) =>{
     console.log(res.status,"inside function");
-    
+    let array3=[];
     if(res.status == 200){
       console.log(res.data);
       
@@ -39,19 +39,36 @@ class ClassReSchCards extends Component {
           let body2={
             'cou_id':array2[i]["course_id"],
            }
+           let final_url1 = this.props.url + "/api/post_get_course_id/";
            axios({method:'post',
-          url:'http://10.0.52.19:8000/api/post_get_course_id/',
+          url:final_url1,
           //url:'http://192.168.43.137:8000/api/post_course_assign_mix/',
           data:[body2]  }).then(res =>{
             console.log("dhsfjgsdfdsyufds....",res.data[0]["course_name"]);
           });
-          //array2[i]["course_id"] = res.data[0]["course_name"];
-          //courseNames.push(res.data[0]["course_name"]);
-          //console.log("dhsfjgsdfdsyufds....",res.data)
-          //array2[i]["course_id"] = res.data[0]["course_name"];
-        
       }
-      this.setState({array:array2.reverse()});
+
+      if(this.props.option ==2){
+        
+        for(let i=0;i<array2.length;i++){
+          if(array2[i]["faculty_id_id"] == this.props.details[0]["slno"]){
+            array3.push(array2[i]);
+          }
+        }
+      }
+      else{
+        array3 = array2;
+      }
+      for(let i=0;i<array3.length;i++){
+        let date_time=array3[i]["post_time"];
+        let list=String(date_time);
+        list = list.split("T");
+        let date=list[0];
+        let time=String(list[1]);
+        time = time.split(".")
+        array3[i]["post_time"] = date + ", " + time[0];
+      }
+      this.setState({array:array3.reverse()});
       //this.setState({final:courseNames.reverse()});
     }
     else{
@@ -65,8 +82,8 @@ class ClassReSchCards extends Component {
   handlePress = async () => {
     let self=this;
     console.log("entered function");
-
-    await axios.get("http://192.168.43.137:8000/api/post_get_mix_classreschedule_course/").then(res => {
+    let final_url2 = this.props.url + "/api/post_get_mix_classreschedule_course/";
+    await axios.get(final_url2).then(res => {
       self.cardData(res);
     })
     //let array2 = [{'key1':'value1','key11':'value11'},{'key1':'value2','key11':'value22'}];
@@ -81,6 +98,7 @@ class ClassReSchCards extends Component {
 
   render() {
     let self = this;
+
     return (
       <div className="animated fadeIn">
         <Row>

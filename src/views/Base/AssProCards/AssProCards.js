@@ -18,7 +18,10 @@ class AssProCards extends React.Component {
       starPress:false,
       starPress1:false,
           
-      array : []
+      array : [],
+      final_ids : [],
+      final_names : [],
+      flag:false,
     };
   }
 
@@ -26,14 +29,24 @@ class AssProCards extends React.Component {
     this.setState({ collapse: !this.state.collapse });
   }
 
+
   cardData = (res) =>{
     console.log(res.status,"inside function");
-    
+  
     if(res.status == 200){
       console.log(res.data);
       
       let array2=res.data;
       let count = Object.keys(res.data).length;
+      for(let i=0;i<array2.length;i++){
+        let date_time=array2[i]["post_time"];
+        let list=String(date_time);
+        list = list.split("T");
+        let date=list[0];
+        let time=String(list[1]);
+        time = time.split(".")
+        array2[i]["post_time"] = date + ", " + time[0];
+      }
       this.setState({array:array2.reverse()})
       
     }
@@ -50,11 +63,11 @@ class AssProCards extends React.Component {
     let self=this;
     //console.log("entered function ass", {self.props.url});
     let body2={
-            'fac_id':2,
+            'fac_id':this.props.details[0]["slno"],
            }
-
+    let final_url = this.props.url + "/api/post_course_assign_mix/";
     await axios({method:'post',
-          url:`http://${this.props.url}/api/post_course_assign_mix/`,
+          url:final_url,
           //url:'http://192.168.43.137:8000/api/post_course_assign_mix/',
           data:[body2]  }).then(res =>{
             self.cardData(res);
@@ -62,7 +75,6 @@ class AssProCards extends React.Component {
           
   }
   componentWillMount(){
-    console.log("entered function ass", this.props.url);
     this.handlePress();
   }
 

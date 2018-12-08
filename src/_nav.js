@@ -5,7 +5,7 @@ export default {
     
         {
           name: 'Home',
-          url: '/base/cards',
+          url: '/base/Eventscards',
           icon: 'icon-puzzle',
         },
        
@@ -78,13 +78,14 @@ export default {
         //   url: '/base/popovers',
         //   icon: 'icon-puzzle',
         // },
-        // {
-        //   name: 'Tables',
-        //   url: '/base/tables',
-        //   icon: 'icon-puzzle',
-        // },    
+        {
+          name: 'Time-table',
+          url: '/base/tables',
+          icon: 'icon-puzzle',
+        },    
   ],
 };
+
 
 // export default {
 //   items: [

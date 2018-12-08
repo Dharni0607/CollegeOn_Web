@@ -26,6 +26,9 @@ import {
 } from 'reactstrap';
 import moment from 'moment';
 import EventsCards from '../EventsCards/EventsCards.js'
+import Cards from '../Cards/Cards.js'
+//import App from '.../App2.js'
+import DefaultLayout from '../../../containers/DefaultLayout/DefaultLayout.js'
 //import DateTimePickerInput from 'coreui/lib/components/DateTimePickerInput';
 
 //import TimePicker from 'react-time-picker';
@@ -56,6 +59,7 @@ class Events extends Component {
         description:'',
         time: '',
         date: '',
+        courses:[],
         //happeningOn: moment()
       };
 
@@ -106,11 +110,11 @@ class Events extends Component {
     this.setState((prevState) => { return { fadeIn: !prevState }});
   }
   handlePressSentPosts = () =>{
-        
       this.setState({cards:true});
   }
   handlePress = async () => {
         console.log("clicked submit");
+        
        if(this.state.ug ==="0" || this.state.dept ===0 || this.state.date ===undefined || this.state.time ===undefined || this.state.course ===0 || this.state.eventName === '' || this.state.eventType === '' || this.state.description === ''){
           alert("Please fill all the fields");
           return;
@@ -123,14 +127,15 @@ class Events extends Component {
           'event_type':this.state.eventType,
           'description':this.state.description,
           'event_datetime': `${this.state.date} , ${this.state.time}`,
+          'post_time':moment()
            }
 
           console.log("dropdown value");
           let self=this;
           console.log(body);
-
+          let final_url = this.props.url + "/api/post_events/";
           await axios({method:'post',
-          url:'http://192.168.1.131:8000/api/post_events/',
+          url:final_url,
           data:[body]  }).then(res =>{
             console.log(res)}).catch(error =>{
               console.log(error)
@@ -138,13 +143,40 @@ class Events extends Component {
       this.setState({cards:true});
   }
 
+  get_courses = async () => {
+    let self=this;
+    console.log("entered function ClassReSchedules");
+    let final_url = this.props.url + "/api/course/";
+    await axios.get(final_url).then(res => {
+      this.setState({courses:res.data});
+    })
+    
+    //let array2 = [{'key1':'value1','key11':'value11'},{'key1':'value2','key11':'value22'}];
 
+    //this.setState({array:array2})
+    
+  }
+  componentWillMount(){
+    this.get_courses();
+  }
 
   render() {
+    let option = this.props.option;
+    let details = this.props.details;
+    let url = this.props.url;
+    console.log("All_courses", this.state.courses);
+    let drop_down_options = [];
+    let k=0;
+    drop_down_options.push(<option key={k} value="0">Please select</option>);
+    if(this.state.courses!= undefined){
+      for(let i=0;i<this.state.courses.length;i++){
+        drop_down_options.push(<option key={i+1} value={this.state.courses[i]["course_id"]}>{this.state.courses[i]["course_name"]}</option>);
+      }
+    }
     return (
       <div className="animated fadeIn">
       {this.state.cards
-        ?(<EventsCards/>)
+        ?(<EventsCards details={details} option={option} url={url}/>)
         :(<center>
 
             <Card>
@@ -194,10 +226,7 @@ class Events extends Component {
                     <Col xs="12" md="9">
                       <Input type="select" name="select" id="select" value={this.state.course}
                         onChange={this.handleChange3('course')}>
-                        <option value="0">Please select</option>
-                        <option value="1">ASE2</option>
-                        <option value="2">sds</option>
-                        <option value="3">All</option>
+                        {drop_down_options}
                       </Input>
                     </Col>
                   </FormGroup>

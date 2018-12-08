@@ -92,12 +92,13 @@ class FeeSchedules extends Component {
           'description':this.state.description,
           'studentdegree':this.state.ug,
           'due_date':this.state.duedate,
+          //'post_time':moment(),
            }
     let self=this;
     console.log(body);
-
+    let final_url = this.props.url + "/api/post_feeschedules/";
     await axios({method:'post',
-    url:'http://192.168.43.137:8000/api/post_feeschedules/',
+    url:final_url,
     data:[body]  }).then(res =>{
       console.log(res)}).catch(error =>{
         console.log(error)
@@ -108,10 +109,13 @@ class FeeSchedules extends Component {
 
 
   render() {
+    let option = this.props.option;
+    let details = this.props.details;
+    let url = this.props.url;
     return (
       <div className="animated fadeIn">
       {this.state.cards
-        ?(<FeeSchedulesCards/>)
+        ?(<FeeSchedulesCards details={details} option={option} url={url}/>)
         :(
          <center>
             <Card>

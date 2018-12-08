@@ -33,6 +33,15 @@ class FeeSchedulesCards extends Component {
       let count = Object.keys(res.data).length;
       
       console.log(array2);
+      for(let i=0;i<array2.length;i++){
+        let date_time=array2[i]["post_time"];
+        let list=String(date_time);
+        list = list.split("T");
+        let date=list[0];
+        let time=String(list[1]);
+        time = time.split(".")
+        array2[i]["post_time"] = date + ", " + time[0];
+      }
       this.setState({array:array2.reverse()})
       
     }
@@ -47,8 +56,8 @@ class FeeSchedulesCards extends Component {
   handlePress = async () => {
     let self=this;
     console.log("entered function");
-
-    await axios.get("http://192.168.43.137:8000/api/feeschedules/").then(res => {
+    let final_url = this.props.url + "/api/feeschedules/";
+    await axios.get(final_url).then(res => {
       self.cardData(res);
     })
     //let array2 = [{'key1':'value1','key11':'value11'},{'key1':'value2','key11':'value22'}];
