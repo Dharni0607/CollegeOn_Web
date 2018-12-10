@@ -4,6 +4,7 @@ import './App.scss';
 import App2 from './App2.js';
 import DefaultLayout from './containers/DefaultLayout/DefaultLayout';
 import AssProCards from './views/Base/AssProCards/AssProCards.js';
+import background from './assets/IIIT-Sri-City.jpg'
 import {
   Badge,
   Button,
@@ -89,7 +90,7 @@ handlePress = () => {
 
           axios({method:'post',
           //url:'http://192.168.43.137:8000/api/post_admin_faculty_login/',
-          url:'http://192.168.43.137:8000/api/post_admin_faculty_login/',
+          url:'http://10.0.48.229:8000/api/post_admin_faculty_login/',
           data:[body]  }).then(res =>{ self.cardData(res);
             });
     console.log("_____________________*******_____________response________");
@@ -97,9 +98,10 @@ handlePress = () => {
     //this.setState({isLogged:true});
   }
   render() {
-    var url = "http://192.168.43.137:8000";
+    var url = "http://10.0.48.229:8000";
     return (
-     <div>
+     <section style={{backgroundImage: `url(${background})`, backgroundSize:'cover' ,height:"800px"}}>
+     <div style={{width:"100%", height:"100%"}}>
      {this.state.isLogged
        ?(<App2 option={this.state.member} details = {this.state.profile} url={url}/>)
                      :(<center>
@@ -121,7 +123,7 @@ handlePress = () => {
                     </Col>
                   </FormGroup><br></br><br></br><Card>
               <CardHeader>
-                <strong>Login </strong>
+                <strong>CollegeOnWeb Login </strong>
               </CardHeader>
               <CardBody>
                 <Form action="" method="post">
@@ -156,6 +158,7 @@ handlePress = () => {
             </Card></Col><Col></Col></Row>
       </center>)}
      </div>
+     </section>
     );
   }
 }
