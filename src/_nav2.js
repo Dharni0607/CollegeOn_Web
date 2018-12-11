@@ -8,11 +8,11 @@ export default {
           url: '/base/EventsCards',
           icon: 'icon-puzzle',
         },
-        {
-          name: 'Forms',
-          url: '/base/forms',
-          icon: 'icon-puzzle',
-        },
+        // {
+        //   name: 'Forms',
+        //   url: '/base/forms',
+        //   icon: 'icon-puzzle',
+        // },
         // {
         //   name: 'Sent Assignments',
         //   url: '/base/AssProcards',

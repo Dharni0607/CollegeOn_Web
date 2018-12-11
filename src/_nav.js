@@ -14,11 +14,11 @@ export default {
         //   url: '/base/AssProcards',
         //   icon: 'icon-puzzle',
         // },
-         {
-          name: 'Forms',
-          url: '/base/forms',
-          icon: 'icon-puzzle',
-        },
+        //  {
+        //   name: 'Forms',
+        //   url: '/base/forms',
+        //   icon: 'icon-puzzle',
+        // },
          {
           name: 'ClassReSchedules',
           url: '/base/ClassReSchcards',
