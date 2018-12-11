@@ -1,19 +1,7 @@
 import React, { Component } from 'react';
 import { Badge, Card, CardBody, CardFooter, CardHeader, Col, Row, Collapse, Fade } from 'reactstrap';
-import { Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
 import { AppSwitch } from '@coreui/react'
 const axios = require('axios');
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4'
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1
-  }
-});
 
 class EventsCards extends Component {
   constructor(props) {
@@ -35,8 +23,6 @@ class EventsCards extends Component {
   toggle() {
     this.setState({ collapse: !this.state.collapse });
   }
-
-  
 
   cardData = (res) =>{
     console.log(res.status,"inside function");
@@ -91,26 +77,7 @@ class EventsCards extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col>
-          <Document>
-          <Page size="A4" style={styles.page}>
-          <View style={styles.section}>
-            {self.state.array.map(function(x,i){
-            return (<Card key={i} className="card-accent-danger">
-                <CardHeader>
-                  <strong style={{fontSize: 20, color:'rgba(205,98,106,1)'}}>{self.state.array[i]["event_type"]}</strong><br></br><small>{self.state.array[i]["post_time"]}</small>
-                </CardHeader>
-                <CardBody>
-                  <strong style={{fontSize: 16, color:'rgba(86,57,71,1)'}}>{self.state.array[i]["event_name"]}</strong><br></br>
-                  {self.state.array[i]["description"]}<br></br>
-                  <i><b><u>Timings</u></b> : {self.state.array[i]["event_datetime"]}</i><br></br>
-                </CardBody>
-              </Card>)
-          })
-        }
-          </View>
-        </Page>
-          </Document>
-          {/* {self.state.array.map(function(x,i){
+          {self.state.array.map(function(x,i){
           return (<Card key={i} className="card-accent-danger">
               <CardHeader>
                 <strong style={{fontSize: 20, color:'rgba(205,98,106,1)'}}>{self.state.array[i]["event_type"]}</strong><br></br><small>{self.state.array[i]["post_time"]}</small>
@@ -122,7 +89,7 @@ class EventsCards extends Component {
               </CardBody>
             </Card>)
          })
-       } */}
+       }
           </Col>
         </Row>
        

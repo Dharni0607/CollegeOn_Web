@@ -92,7 +92,7 @@ handlePress = () => {
 
           axios({method:'post',
           //url:'http://192.168.43.137:8000/api/post_admin_faculty_login/',
-          url:'http://10.0.49.5:8000/api/post_admin_faculty_login/',
+          url:'http://10.0.48.229:8000/api/post_admin_faculty_login/',
           data:[body]  }).then(res =>{ self.cardData(res);
             });
     console.log("_____________________*******_____________response________");
